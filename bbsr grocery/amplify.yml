@@ -1,0 +1,28 @@
+version: 1
+backend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Installing backend dependencies..."
+        - cd backend && npm install
+    build:
+      commands:
+        - echo "Backend build completed (not hosted in Amplify Hosting)."
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Installing frontend dependencies..."
+        - cd frontend && npm install
+    build:
+      commands:
+        - echo "Building React app..."
+        - npm run build
+  artifacts:
+    baseDirectory: frontend/build   # where React puts build files
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - backend/node_modules/**/*
+      - frontend/node_modules/**/*
